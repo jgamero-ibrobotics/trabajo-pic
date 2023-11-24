@@ -50,14 +50,14 @@ labels = []
 scores = []
 bboxes = []
 for result in detections:
-    # print(result)
-    labels.append(int(result[5]))
-    scores.append(result[4])
-    bboxes.append(result[:4].astype(int))  # Convert bbox coordinates to integers
+    if  classes[int(result[5])] == 'person': 
+        labels.append(int(result[5]))       
+        scores.append(result[4])
+        bboxes.append(result[:4].astype(int))  # Convert bbox coordinates to integers
 
 
-conf_threshold = 0.1
-nms_threshold = 0.8
+conf_threshold = 0.5
+nms_threshold = 0.4
 # apply non-max suppression
 indices = cv2.dnn.NMSBoxes(bboxes, scores, conf_threshold, nms_threshold)
 
